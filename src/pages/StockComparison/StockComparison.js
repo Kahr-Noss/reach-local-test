@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import request from 'request-promise';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import DatePicker from "react-datepicker";
@@ -7,7 +6,6 @@ import DatePicker from "react-datepicker";
 import { actions } from '../../redux/StockComparisonActions';
 
 import LineChart from '../../components/LineChart/LineChart';
-import companiesList from '../../data/companyList.json';
 
 import './StockComparison.css';
 import "react-datepicker/dist/react-datepicker.css";

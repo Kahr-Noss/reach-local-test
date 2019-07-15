@@ -1,5 +1,4 @@
 import React from 'react';
-import request from 'request-promise';
 import moment from 'moment';
 import { connect } from 'react-redux';
 

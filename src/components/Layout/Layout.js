@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import { Link } from "react-router-dom";
-import request from 'request-promise';
 
 import './Layout.css';
 

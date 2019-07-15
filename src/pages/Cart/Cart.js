@@ -1,6 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import request from 'request-promise';
-import moment from 'moment';
 import { connect } from 'react-redux';
 
 import { actions } from '../../redux/BuyStocksActions';

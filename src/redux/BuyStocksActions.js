@@ -51,11 +51,11 @@ function changeQuantity(quantity, price) {
     } else {
       const parsedQuantity = Number.parseInt(quantity, 10);
       // check if the quantity if lower than 1000
-      if (quantity > 1000) {
+      if (parsedQuantity > 1000) {
         dispatch({ type: actionsTypes.SHOW_ERROR_BUY, category: 'quantity', msg: 'You can only buy a maximum of 1000 stocks in one time.' });
       }
         // check if the total price if lower than 1000000
-      if (price * quantity > 1000000) {
+      if (price * parsedQuantity > 1000000) {
         dispatch({ type: actionsTypes.SHOW_ERROR_BUY, category: 'total', msg: 'You can only buy a maximum of 1.000.000$ in one time.' });
       }
     }
