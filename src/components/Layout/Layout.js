@@ -2,16 +2,14 @@ import React, { Fragment } from 'react';
 import { Link } from "react-router-dom";
 import request from 'request-promise';
 
-
 import './Layout.css';
 
-
+// Layout of the website, with header
 function Layout(props) {
   return (
     <Fragment>
       <div className="header">
         <div className="header-btn-container centered-content">
-
           <Link className="header-btn" to="/stocks">COMPARE</Link>
           <Link className="header-btn" to="/buy">BUY</Link>
           <Link className="header-btn" to="/mycart">MY CART</Link>
@@ -23,6 +21,5 @@ function Layout(props) {
     </Fragment>
   )
 }
-
 
 export default Layout;

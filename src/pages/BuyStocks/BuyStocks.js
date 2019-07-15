@@ -6,12 +6,11 @@ import { connect } from 'react-redux';
 import { actions } from '../../redux/BuyStocksActions';
 import isStockExchangeOpen from '../../utils/isStockExchangeOpen';
 
-// import './BuyStocks.css';
-// import "react-datepicker/dist/react-datepicker.css";
+import './BuyStocks.css';
+import "react-datepicker/dist/react-datepicker.css";
 
-
-export function BuyStocks(props) {
-
+// component for buying stocks
+function BuyStocks(props) {
   const isMarketOpen = isStockExchangeOpen(moment());
 
   return (

@@ -7,8 +7,10 @@ import { actions } from '../../redux/BuyStocksActions';
 
 import './Cart.css';
 
-
+// component displaying cart content
 class Cart extends Component {
+
+  // the state is used to save the currently edited data (no need to go through the store)
   constructor(props) {
     super(props);
     this.state = {
@@ -44,6 +46,8 @@ class Cart extends Component {
     return (
       <div className="cart-wrapper">
         <div className="text">MY CART</div>
+
+        {this.props.cart.length === 0 ? <div className="text">My cart is empty...</div> : null}
 
         {this.props.cart.map((item) => (
           <div className="item-wrapper" key={item.id}>
