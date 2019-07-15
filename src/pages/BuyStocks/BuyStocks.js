@@ -4,12 +4,15 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 
 import { actions } from '../../redux/BuyStocksActions';
+import isStockExchangeOpen from '../../utils/isStockExchangeOpen';
 
 import './BuyStocks.css';
 import "react-datepicker/dist/react-datepicker.css";
 
-
+// component for buying stocks
 function BuyStocks(props) {
+  const isMarketOpen = isStockExchangeOpen(moment());
+
   return (
     <div className="buy-stocks-wrapper">
       <div className="data-container">
@@ -40,10 +43,11 @@ function BuyStocks(props) {
       <button
         className="buy-btn btn"
         onClick={() => props.onBuy(props.company, props.price, props.quantity)}
-        disabled={!props.company || !props.price || Object.values(props.errors).some((err) => !!err)}
+        disabled={!isMarketOpen || !props.company || !props.price || Object.values(props.errors).some((err) => !!err)}
       >
         BUY
       </button>
+      {isMarketOpen ? '' : <div className="italic-txt">Sorry, the Tokyo Stock Exchange is currently closed.<br/>Monday to Friday, 09:00-11:30, 12:30-15:00</div>}
     </div>
   );
 }

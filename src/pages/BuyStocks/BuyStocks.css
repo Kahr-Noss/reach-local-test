@@ -11,11 +11,16 @@
   justify-content: space-between;
 }
 
-.empty-line{
+.empty-line {
   height: 20px;
   text-align: right;
 }
 
-.buy-input{
+.buy-input {
   width: 80px;
+}
+
+.italic-txt {
+  font-style: italic;
+  text-align: center;
 }

@@ -12,20 +12,7 @@ const initialState = {
     quantity: null,
     total: null,
   },
-  cart: [{
-    id: `dsffsddfdskjsdgdsh`,
-    time: moment(),
-    company: 'PLOP',
-    quantity: 12,
-    price: 10000
-  },
-  {
-    id: `dsffsddfdskjsddgsdgfghgdsh`,
-    time: moment(),
-    company: 'FLIBIDI',
-    quantity: 456,
-    price: 5
-  }]
+  cart: []
 }
 
 function stockComparisonReducer(state = initialState, action) {

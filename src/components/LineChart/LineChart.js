@@ -9,16 +9,19 @@ import 'c3/c3.css';
 
 const moment = extendMoment(Moment);
 
+// this component format the data to display them with C3js
+// it's a pure component to update only when it's needed
 class LineChart extends PureComponent {
   render() {
     // creating the horizontal axis scale, and formatting column data
     let columns = [
       [
-        'x',
+        'x', // horizontal axis
         ...Array.from(moment.range(this.props.startDate, this.props.endDate).by('days'))
           .filter((day) => day.day() !== 0 && day.day() !== 6) // remove Saturdays and Sundays
           .map((day) => day.format('YYYY-MM-DD'))
       ],
+      // companies data
       ...Object.values(this.props.data).map((company) => [company.name, ...company.values.map((day) => day.close)])
     ];
 
