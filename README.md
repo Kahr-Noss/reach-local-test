@@ -4,12 +4,15 @@ This application was made using create-react-app as basis.
 ## Set up
 
 To run it, clone the repository
+
 git clone https://github.com/Kahr-Noss/reach-local-test.git
 
 Then install the dependancies using
+
 npm i
 
 Then start the application using 
+
 npm run start
 
 Then open the page in your browser, it should be automatic, but in case of fail it would be this one:
