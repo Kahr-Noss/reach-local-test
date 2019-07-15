@@ -1,3 +1,5 @@
 .error-msg {
   color: red;
+  margin-left: 20px;
+  font-style: italic;
 }

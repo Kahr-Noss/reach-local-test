@@ -21,7 +21,7 @@ class C3Chart extends React.Component {
     // it checks if the column count is lower than before
     // if true, it destroy the chart so it's redrawn with the correct number of entries
     if (this.props.data.columns.length > newProps.data.columns.length) {
-      this.destroyChart()
+      this.destroyChart();
     }
     // ************* ***********************************************
     if (newProps.onPropsChanged) {

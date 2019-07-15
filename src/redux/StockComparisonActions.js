@@ -7,7 +7,7 @@ export const actionsTypes = {
   CHANGE_DATE: 'CHANGE_DATE',
   LOAD_COMPANY_DATA: 'LOAD_COMPANY_DATA',
   CLEAR_COMPANY_DATA: 'CLEAR_COMPANY_DATA',
-
+  SHOW_ERROR: 'SHOW_ERROR'
 }
 
 function addCompany(code, startDate, endDate) {
@@ -27,19 +27,22 @@ function loadCompanyData(code, startDate, endDate) {
       .then((data) => {
         // keep only relevant data
         const parsedData = JSON.parse(data);
-        const result = {          
-          name: parsedData.symbol,
-          isLoading: false,
-          values: parsedData.historical.map((day) => ({
-            date: day.date,
-            close: day.close
-          }))
-        };
-        dispatch({ type: actionsTypes.LOAD_COMPANY_DATA, code, result });
+        if (parsedData.Error) {
+          dispatch({ type: actionsTypes.SHOW_ERROR, category: 'company', msg: 'Company code not found, please chack that you inputed a valid company code.' });
+        } else {
+          const result = {          
+            name: parsedData.symbol,
+            isLoading: false,
+            values: parsedData.historical.map((day) => ({
+              date: day.date,
+              close: day.close
+            }))
+          };
+          dispatch({ type: actionsTypes.LOAD_COMPANY_DATA, code, result });
+        }
       })
       .catch((err) => {
-        // TODO
-        // this.setState({ error: err, isLoading: false });
+        dispatch({ type: actionsTypes.SHOW_ERROR,  msg: 'API is down, please retry later.' });
       });
   }
 }

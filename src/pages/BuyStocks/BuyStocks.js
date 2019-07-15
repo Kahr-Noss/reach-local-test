@@ -3,9 +3,7 @@ import request from 'request-promise';
 import moment from 'moment';
 import { connect } from 'react-redux';
 
-import { actions } from './actions';
-
-import companiesList from '../../data/companyList.json';
+import { actions } from '../../redux/BuyStocksActions';
 
 import './BuyStocks.css';
 import "react-datepicker/dist/react-datepicker.css";
@@ -15,43 +13,25 @@ function BuyStocks(props) {
   console.log(props);
   return (
     <div className="buy-stocks-wrapper">
-      Select the company you want:
-      <br />
-      <select
-        className="company-select"
-        value={props.company}
-        onChange={(e) => props.onSelectCompany(e.target.value)}
-      >
-        <option value="" disabled>Select a company...</option>
-        {companiesList.map((company) => <option key={company} value={company}>{company}</option>)}
-      </select>
-      {props.company
-        ? (<div className='stock-price'>
+      Type the company code you want:
+      <br /><input value={props.company} onChange={(e) => props.onCompanyChange(e.target.value)} />
+      {props.errors.company ? <span className="error-msg" >{props.errors.company}</span> : null}
 
-        </div>)
-        : null
-      }
-
-      {props.company
-        ? (
-          <div>
-            Stock Price: {props.price || 'Loading...'}
-            <br />Quantity:
-            <input value={props.quantity} onChange={(e) => props.onQuantityChange(e.target.value)} />
-          </div>
-        )
-        : null
-      }
-      {props.company && !isNaN(props.quantity) && isNaN(props.price)
-        ? (
-          <div className='total-price'>
-            Total: {props.price * props.quantity}
-          </div>
-        )
-        : null
-      }
-      {props.errorList.map((err) =>  <div className="error-msg" key={err.category}>{err.msg}</div>) }
+      <br /> Stock Price: {props.price ? `${props.price}$` : 'Loading...'}
       
+      <br />Quantity: <input value={props.quantity} onChange={(e) => props.onQuantityChange(e.target.value, props.price)} />
+      {props.errors.quantity ? <span className="error-msg" >{props.errors.quantity}</span> : null}     
+     
+      <br />Total: {isNaN(props.price * props.quantity) ? '' : `${props.price * props.quantity}$`}
+      {props.errors.total ? <span className="error-msg" >{props.errors.total}</span> : null}
+
+      <br />
+      <button
+        onClick={() => props.onBuy(props.company, props.price, props.quantity)}
+        disabled={!props.company || !props.price || Object.values(props.errors).some((err) => !!err)}
+      >
+        BUY
+      </button>
     </div>
   );
 }
@@ -60,13 +40,13 @@ const mapStateToProps = (state) => ({
   company: state.buyStocks.company,
   quantity: state.buyStocks.quantity,
   price: state.buyStocks.price,
-  errorList: state.buyStocks.errorList
+  errors: state.buyStocks.errors,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onSelectCompany: (code) => { dispatch(actions.selectCompany(code)) },
-  onQuantityChange: (quantity) => { dispatch(actions.changeQuantity(quantity)) },
-  onBuy: (code, price, quantity) => { dispatch(actions.buyStocks(code, price, quantity)) },
+  onCompanyChange: (company) => { dispatch(actions.selectCompany(company)) },
+  onQuantityChange: (quantity, price) => { dispatch(actions.changeQuantity(quantity, price)) },
+  onBuy: (company, price, quantity) => { dispatch(actions.buyStocks(company, price, quantity)) },
 });
 
 

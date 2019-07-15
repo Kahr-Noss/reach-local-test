@@ -4,7 +4,7 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 import DatePicker from "react-datepicker";
 
-import { actions } from './actions';
+import { actions } from '../../redux/StockComparisonActions';
 
 import LineChart from '../../components/LineChart/LineChart';
 import companiesList from '../../data/companyList.json';
@@ -16,7 +16,7 @@ import "react-datepicker/dist/react-datepicker.css";
 class StockComparison extends Component {
   constructor(props) {
     super(props);
-    this.state = { selectedCompany: '' };
+    this.state = { inputedCompany: '' };
   }
 
 
@@ -33,7 +33,7 @@ class StockComparison extends Component {
   }
 
   changeSelectedCompany = (value) => {
-    this.setState({ selectedCompany: value });
+    this.setState({ inputedCompany: value.toUpperCase() });
   }
 
   render() {
@@ -54,7 +54,7 @@ class StockComparison extends Component {
         />
         <button onClick={this.reloadData}>LOAD</button>
         <LineChart
-          data={Object.values(this.props.companies)}
+          data={this.props.companies}
           startDate={this.props.startDate}
           endDate={this.props.endDate}
         />
@@ -66,20 +66,15 @@ class StockComparison extends Component {
           </div>
         ))}
 
-        <select
-          className="add-company-select"
-          value={this.state.selectedCompany}
-          onChange={(e) => this.changeSelectedCompany(e.target.value)}
-        >
-           <option  value="" disabled>Select a company to add...</option>
-          {companiesList.map((company) => <option key={company} value={company}>{company}</option>)}
-        </select>
+        <input value={this.state.inputedCompany} onChange={(e) => this.changeSelectedCompany(e.target.value)} />
         <button className="add-btn" onClick={() => {
-          if (this.state.selectedCompany){
-            this.props.onAddCompany(this.state.selectedCompany, this.props.startDate, this.props.endDate);
+          if (this.state.inputedCompany) {
+            this.props.onAddCompany(this.state.inputedCompany, this.props.startDate, this.props.endDate);
           }
           this.changeSelectedCompany('');
         }}>ADD</button>
+
+        {this.props.error ? <span className="error-msg" >{this.props.error}</span> : null}
       </div>
     );
   }
@@ -89,6 +84,7 @@ const mapStateToProps = (state) => ({
   startDate: state.stockComparison.startDate,
   endDate: state.stockComparison.endDate,
   companies: state.stockComparison.companies,
+  error: state.stockComparison.error,
 });
 
 const mapDispatchToProps = (dispatch) => ({
