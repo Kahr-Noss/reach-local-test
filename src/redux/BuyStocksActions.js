@@ -1,5 +1,7 @@
 import request from 'request-promise';
+import moment from 'moment';
 
+import isStockExchangeOpen from '../utils/isStockExchangeOpen';
 
 export const actionsTypes = {
   SELECT_COMPANY: 'SELECT_COMPANY',
@@ -60,12 +62,16 @@ function buyStocks(company, price, quantity) {
   if (price * quantity > 1000000) {
     return { type: actionsTypes.SHOW_ERROR_BUY, category: 'total', msg: 'You can only buy a maximum of 1.000.000$ in one time.' };
   }
-  return {
-    type: actionsTypes.BUY,
-    company,
-    price,
-    quantity,
-  };
+
+  // check if the stock exchange is open
+  if (isStockExchangeOpen(moment())) {
+    return {
+      type: actionsTypes.BUY,
+      company,
+      price,
+      quantity,
+    };
+  }
 }
 
 function removeStocks(id) {
