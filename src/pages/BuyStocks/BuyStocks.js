@@ -10,23 +10,35 @@ import "react-datepicker/dist/react-datepicker.css";
 
 
 function BuyStocks(props) {
-  console.log(props);
   return (
     <div className="buy-stocks-wrapper">
-      Type the company code you want:
-      <br /><input value={props.company} onChange={(e) => props.onCompanyChange(e.target.value)} />
-      {props.errors.company ? <span className="error-msg" >{props.errors.company}</span> : null}
+      <div className="data-container">
+        <div className='text'>Type the company code you want:</div>
+        <input className="buy-input" value={props.company} onChange={(e) => props.onCompanyChange(e.target.value)} />
+      </div>
+      <div className="empty-line error-msg">{props.errors.company}</div>
 
-      <br /> Stock Price: {props.price ? `${props.price}$` : 'Loading...'}
-      
-      <br />Quantity: <input value={props.quantity} onChange={(e) => props.onQuantityChange(e.target.value, props.price)} />
-      {props.errors.quantity ? <span className="error-msg" >{props.errors.quantity}</span> : null}     
-     
-      <br />Total: {isNaN(props.price * props.quantity) ? '' : `${props.price * props.quantity}$`}
-      {props.errors.total ? <span className="error-msg" >{props.errors.total}</span> : null}
+      <div className="data-container">
+        <div className='text'>Stock Price: </div>
+        <div>{props.status === 'complete' ? `${props.price}$` : props.status}</div>
+      </div>
+      <div className="empty-line" />
+
+      <div className="data-container">
+        <div className='text'>Quantity:</div>
+        <input className="buy-input" value={props.quantity} onChange={(e) => props.onQuantityChange(e.target.value, props.price)} />
+      </div>
+      <div className="empty-line error-msg">{props.errors.quantity}</div>
+
+      <div className="data-container">
+        <div className='text'>Total: </div>
+        {isNaN(props.price * props.quantity) ? '' : `${props.price * props.quantity}$`}
+      </div>
+      <div className="empty-line error-msg">{props.errors.total}</div>
 
       <br />
       <button
+        className="buy-btn btn"
         onClick={() => props.onBuy(props.company, props.price, props.quantity)}
         disabled={!props.company || !props.price || Object.values(props.errors).some((err) => !!err)}
       >
@@ -40,6 +52,7 @@ const mapStateToProps = (state) => ({
   company: state.buyStocks.company,
   quantity: state.buyStocks.quantity,
   price: state.buyStocks.price,
+  status: state.buyStocks.status,
   errors: state.buyStocks.errors,
 });
 

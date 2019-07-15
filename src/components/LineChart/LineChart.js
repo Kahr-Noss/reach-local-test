@@ -30,6 +30,7 @@ class LineChart extends PureComponent {
 
     return (
       <C3Chart
+        className="line-chart"
         data={formattedData}
         axis={{
           x: { type: 'timeseries', tick: { format: '%Y-%m-%d', rotate: -45, culling: { max: 30 } } },
@@ -37,7 +38,7 @@ class LineChart extends PureComponent {
         }}
         padding={{ bottom: 100 }}
         point={{ show: false }}
-        size={{ height: 500 }}
+        size={{ height: 450 }}
       />
     );
   }

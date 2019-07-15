@@ -6,7 +6,7 @@ export const actionsTypes = {
   CHANGE_QUANTITY: 'CHANGE_QUANTITY',
   BUY: 'BUY',
   LOAD_PRICE: 'LOAD_PRICE',
-  SHOW_ERROR: 'SHOW_ERROR',
+  SHOW_ERROR_BUY: 'SHOW_ERROR_BUY',
   EDIT_CART: 'EDIT_CART',
   REMOVE: 'REMOVE',
 }
@@ -19,19 +19,19 @@ function selectCompany(company) {
     dispatch({ type: actionsTypes.SELECT_COMPANY, company: upperCaseCode }); // this reset the values and display them as loading
     lastAPICallID++;
     const APICallID = lastAPICallID;
-    return request(`https://financialmodelingprep.com/api/v3/stock/real-time-price/${upperCaseCode}`)
+    return request(`https://financialmodelingprep.com/api/v3/stock/real-time-price/${encodeURI(upperCaseCode)}`)
       .then((data) => {
         if (APICallID === lastAPICallID) { // only apply the changes if it was the last api call
           const parsedData = JSON.parse(data);
           if (parsedData.Error) {
-            dispatch({ type: actionsTypes.SHOW_ERROR, category: 'company', msg: 'Company code not found, please chack that you inputed a valid company code.' });
+            dispatch({ type: actionsTypes.SHOW_ERROR_BUY, category: 'company', msg: 'Company code not found.' });
           } else {
             dispatch({ type: actionsTypes.LOAD_PRICE, price: parsedData.price });
           }
         }
       })
       .catch((err) => {
-        return { type: actionsTypes.SHOW_ERROR, category: 'company', msg: 'API is down, please retry later.' };
+        return { type: actionsTypes.SHOW_ERROR_BUY, category: 'company', msg: 'API is down, please retry later.' };
       });
   };
 }
@@ -40,14 +40,14 @@ function changeQuantity(quantity, price) {
   return (dispatch) => {
     dispatch({ type: actionsTypes.CHANGE_QUANTITY, quantity });
     if (!quantity.match(/^[0-9]*$/)) {
-      dispatch({ type: actionsTypes.SHOW_ERROR, category: 'quantity', msg: 'Please input a number between 1 and 1000' });
+      dispatch({ type: actionsTypes.SHOW_ERROR_BUY, category: 'quantity', msg: 'Please input a number between 1 and 1000' });
     } else {
       const parsedQuantity = Number.parseInt(quantity, 10);
       if (quantity > 1000) {
-        dispatch({ type: actionsTypes.SHOW_ERROR, category: 'quantity', msg: 'You can only buy a maximum of 1000 stocks in one time.' });
+        dispatch({ type: actionsTypes.SHOW_ERROR_BUY, category: 'quantity', msg: 'You can only buy a maximum of 1000 stocks in one time.' });
       }
       if (price * quantity > 1000000) {
-        dispatch({ type: actionsTypes.SHOW_ERROR, category: 'total', msg: 'You can only buy a maximum of 1.000.000$ worth of stocks in one time.' });
+        dispatch({ type: actionsTypes.SHOW_ERROR_BUY, category: 'total', msg: 'You can only buy a maximum of 1.000.000$ in one time.' });
       }
     }
   };
@@ -55,10 +55,10 @@ function changeQuantity(quantity, price) {
 
 function buyStocks(company, price, quantity) {
   if (quantity > 1000) {
-    return { type: actionsTypes.SHOW_ERROR, category: 'quantity', msg: 'You can only buy a maximum of 1000 stocks in one time.' };
+    return { type: actionsTypes.SHOW_ERROR_BUY, category: 'quantity', msg: 'You can only buy a maximum of 1000 stocks in one time.' };
   }
   if (price * quantity > 1000000) {
-    return { type: actionsTypes.SHOW_ERROR, category: 'total', msg: 'You can only buy a maximum of 1.000.000$ worth of stocks in one time.' };
+    return { type: actionsTypes.SHOW_ERROR_BUY, category: 'total', msg: 'You can only buy a maximum of 1.000.000$ in one time.' };
   }
   return {
     type: actionsTypes.BUY,

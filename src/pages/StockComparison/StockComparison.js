@@ -33,48 +33,65 @@ class StockComparison extends Component {
   }
 
   changeSelectedCompany = (value) => {
+    // update the company the user is typing
     this.setState({ inputedCompany: value.toUpperCase() });
   }
 
   render() {
-    console.log(this.props)
     return (
       <div className="stocks-comparison-wrapper">
-        <DatePicker
-          selected={this.props.startDate.toDate()}
-          dateFormat="yyyy-MM-dd"
-          onChange={(date) => this.props.onDateChange('startDate', moment(date))}
-          maxDate={this.props.endDate.toDate()}
-        />
-        <DatePicker
-          selected={this.props.endDate.toDate()}
-          dateFormat="yyyy-MM-dd"
-          onChange={(date) => this.props.onDateChange('endDate', moment(date))}
-          minDate={this.props.startDate.toDate()}
-        />
-        <button onClick={this.reloadData}>LOAD</button>
-        <LineChart
-          data={this.props.companies}
-          startDate={this.props.startDate}
-          endDate={this.props.endDate}
-        />
-        {Object.values(this.props.companies).map((company) => (
-          <div className="company-wrapper" key={company.name}>
-            <button className="remove-btn" onClick={() => this.props.onCompanyRemove(company.name)}>X</button>
-            {company.name}
-            {company.isLoading ? <span className="loading-txt">Loading...</span> : null}
+
+        <div className="left-menu">
+          <div className='text'>COMPANIES</div>
+
+          <div className="left-menu-input-wrapper">
+            <input className='left-menu-input' value={this.state.inputedCompany} onChange={(e) => this.changeSelectedCompany(e.target.value)} />
+            <button className="btn" onClick={() => {
+              if (this.state.inputedCompany) {
+                this.props.onAddCompany(this.state.inputedCompany, this.props.startDate, this.props.endDate);
+              }
+              this.changeSelectedCompany('');
+            }}>ADD</button>
           </div>
-        ))}
 
-        <input value={this.state.inputedCompany} onChange={(e) => this.changeSelectedCompany(e.target.value)} />
-        <button className="add-btn" onClick={() => {
-          if (this.state.inputedCompany) {
-            this.props.onAddCompany(this.state.inputedCompany, this.props.startDate, this.props.endDate);
-          }
-          this.changeSelectedCompany('');
-        }}>ADD</button>
+          <div className="left-menu-companies-wrapper">
+            {Object.values(this.props.companies).map((company) => (
+              <div className="company-wrapper" key={company.name}>
+                {company.name}
+                {company.status !== 'complete' ? <span className="loading-txt">{company.status}</span> : null}
+                <button className="remove-btn" onClick={() => this.props.onCompanyRemove(company.name)}>X</button>
+              </div>
+            ))}
+          </div>
+          {this.props.error ? <span className="error-msg" >{this.props.error}</span> : null}
+        </div>
 
-        {this.props.error ? <span className="error-msg" >{this.props.error}</span> : null}
+
+        <div className="right-content">
+          <div className='text'>Select the date range:</div>
+          <div className="date-selection-wrapper">
+            <div className='label'>FROM</div>
+            <DatePicker
+              selected={this.props.startDate.toDate()}
+              dateFormat="yyyy-MM-dd"
+              onChange={(date) => this.props.onDateChange('startDate', moment(date))}
+              maxDate={this.props.endDate.toDate()}
+            />
+            <div className='label'>TO</div>
+            <DatePicker
+              selected={this.props.endDate.toDate()}
+              dateFormat="yyyy-MM-dd"
+              onChange={(date) => this.props.onDateChange('endDate', moment(date))}
+              minDate={this.props.startDate.toDate()}
+            />
+            <button className="load-btn btn" onClick={this.reloadData}>LOAD</button>
+          </div>
+          <LineChart
+            data={this.props.companies}
+            startDate={this.props.startDate}
+            endDate={this.props.endDate}
+          />
+        </div>
       </div>
     );
   }

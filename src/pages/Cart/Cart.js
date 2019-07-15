@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import request from 'request-promise';
 import moment from 'moment';
 import { connect } from 'react-redux';
@@ -41,33 +41,48 @@ class Cart extends Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <div className="cart-wrapper">
+        <div className="text">MY CART</div>
+
         {this.props.cart.map((item) => (
           <div className="item-wrapper" key={item.id}>
-            <div>{item.company}<br />{item.time.format('YYYY/MM/DD - hh:mm:ss')}</div>
-            <div>
-              Quantity:
-              {this.state.editedID === item.id
-                ? <input value={this.state.editedQuantity} onChange={(e) => this.changeInputedQuantity(e.target.value, item.price)} />
-                : item.quantity
-              }
-              x {item.price}$ 
-              = {item.price * (this.state.editedID === item.id ? this.state.editedQuantity :item.quantity)}$
+            <div className="column-wrapper">
+              <div className="text">{item.company}</div>
+              <div className="date-txt">{item.time.format('YYYY/MM/DD - hh:mm:ss')}</div>
             </div>
-            {this.state.editedID === item.id
-              ? (<div>
-                {this.state.error ? <span className="error-msg" >{this.state.error}</span> : null}
-                <button className="edit-validate-btn" onClick={() => {
-                  this.props.onEdit(item.id, this.state.editedQuantity, item.price);
-                  this.selectItemToEdit('');
-                }}>CHANGE</button>
-                <button className="edit-cancel-btn" onClick={() => this.selectItemToEdit('')}>CANCEL</button>
-              </div>)
-              : <button className="edit-select-btn" onClick={() => this.selectItemToEdit(item.id)}>EDIT</button>
-            }
-            <button className="remove-item-btn" onClick={() => this.props.onItemRemove(item.id)}>REMOVE</button>
+
+            <div className="column-wrapper column-grow">
+              <div className="text">Quantity:</div>
+              <div>
+                {this.state.editedID === item.id
+                  ? <input className="edit-quantity-input" value={this.state.editedQuantity} onChange={(e) => this.changeInputedQuantity(e.target.value, item.price)} />
+                  : item.quantity
+                }
+                x {item.price}$
+                = {item.price * (this.state.editedID === item.id ? this.state.editedQuantity : item.quantity)}$
+              </div>
+              {this.state.error && this.state.editedID === item.id ? <div className="error-msg" >{this.state.error}</div> : null}
+            </div>
+
+            <div >
+              {this.state.editedID === item.id
+                ? (
+                  <Fragment>
+                    <button
+                      className="edit-validate-btn btn"
+                      disabled={!!this.state.error}
+                      onClick={() => {
+                        this.props.onEdit(item.id, this.state.editedQuantity, item.price);
+                        this.selectItemToEdit('');
+                      }}>CHANGE</button>
+                    <button className="edit-cancel-btn btn" onClick={() => this.selectItemToEdit('')}>CANCEL</button>
+                  </Fragment>
+                )
+                : <button className="edit-select-btn btn" onClick={() => this.selectItemToEdit(item.id)}>EDIT</button>
+              }
+              <button className="remove-item-btn btn" onClick={() => this.props.onItemRemove(item.id)}>REMOVE</button>
+            </div>
           </div>
         ))}
       </div>

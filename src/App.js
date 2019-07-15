@@ -5,6 +5,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk'
 
 import reducers from './redux/reducers';
+import Layout from './components/Layout/Layout';
 import StockComparison from './pages/StockComparison/StockComparison';
 import BuyStocks from './pages/BuyStocks/BuyStocks';
 import Cart from './pages/Cart/Cart';
@@ -19,9 +20,11 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router>
-          <Route path="/stocks" exact component={StockComparison} />
-          <Route path="/buy" exact component={BuyStocks} />
-          <Route path="/mycart" exact component={Cart} />
+          <Layout>
+            <Route path="/stocks" exact component={StockComparison} />
+            <Route path="/buy" exact component={BuyStocks} />
+            <Route path="/mycart" exact component={Cart} />
+          </Layout>
         </Router>
       </Provider>
     );

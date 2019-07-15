@@ -23,7 +23,7 @@ function stockComparisonReducer(state = initialState, action) {
         ...state,
         companies: {
           ...state.companies,
-          [action.code]: { name: action.code, values: [], isLoading: true },
+          [action.code]: { name: action.code, values: [], status: 'Loading...' },
         },
         error: null,
       }
@@ -49,6 +49,17 @@ function stockComparisonReducer(state = initialState, action) {
     }
 
     case actionsTypes.SHOW_ERROR: {
+      // if a company code is given, set the company status to error
+      if (action.code) {
+        return {
+          ...state,
+          companies: {
+            ...state.companies,
+            [action.code]: { name: action.code, values: [], status: 'Error' },
+          },
+          error: action.msg,
+        }
+      }
       return {
         ...state,
         error: action.msg

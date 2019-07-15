@@ -4,8 +4,9 @@ import { actionsTypes } from './BuyStocksActions';
 
 const initialState = {
   company: '',
-  price: null,
+  price: 0,
   quantity: 1,
+  status: 'complete',
   errors: {
     company: null,
     quantity: null,
@@ -33,6 +34,7 @@ function stockComparisonReducer(state = initialState, action) {
       return {
         ...state,
         company: action.company,
+        status: 'Loading...',
         errors: {
           ...state.errors,
           company: null,
@@ -56,13 +58,15 @@ function stockComparisonReducer(state = initialState, action) {
     case actionsTypes.LOAD_PRICE: {
       return {
         ...state,
+        status: 'complete',
         price: action.price
       };
     }
 
-    case actionsTypes.SHOW_ERROR: {
+    case actionsTypes.SHOW_ERROR_BUY: {
       return {
         ...state,
+        status: action.category === 'company' ? 'Error' : state.status,
         errors: {
           ...state.errors,
           [action.category]: action.msg,

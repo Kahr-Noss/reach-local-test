@@ -1,5 +1,36 @@
-.item-wrapper{
+.cart-wrapper {
+  padding: 20px;
   display: flex;
-  justify-content: space-between;
-  align-items: stretch
+  flex-direction: column;
+}
+
+.item-wrapper{
+  border: solid 2px darkslategrey;
+  padding: 15px;
+  margin-top: 20px;
+  display: flex;
+  align-items: stretch;
+}
+
+.column-wrapper{
+  display: flex;
+  flex-direction: column;
+}
+
+.column-grow{
+  flex: 1;
+  margin: 0 50px;
+}
+
+.date-txt{
+  font-style: italic;
+}
+
+.item-wrapper .btn{
+  margin-left: 10px;
+}
+
+.edit-quantity-input{
+  width:50px;
+  margin-right: 10px;
 }

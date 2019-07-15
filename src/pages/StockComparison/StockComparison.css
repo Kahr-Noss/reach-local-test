@@ -1,8 +1,76 @@
-.remove-btn {
-  margin-right: 15px;
+.stocks-comparison-wrapper {
+  display: flex;
+  align-items: stretch;
 }
 
-.loading-txt{
+.left-menu {
+  min-width: 180px;
+  max-width: 180px;
+  background-color: darkslategrey;
+  padding: 10px;
+}
+
+.left-menu .text {
+  margin: 15px 5px;
+  color: white;
+}
+
+.left-menu-input-wrapper {
+  display: flex;
+  align-items: stretch;
+}
+
+.left-menu-input {
+  width: 100px;
+}
+
+.left-menu-companies-wrapper {
+  margin-top: 20px;
+}
+
+.right-content {
+  flex: 1;
+  padding: 20px;
+}
+
+.date-selection-wrapper {
+  display: flex;
+  padding: 10px;
+  align-items: stretch;
+}
+
+.react-datepicker__input-container input {
+  line-height: 32px;
+  width: 90px;
+  padding: 0 7px;
+}
+
+.company-wrapper{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  border-top: solid 2px white;
+  margin: 5px 0;
+}
+
+.remove-btn {
+  font-size: 1.3rem;
+  background-color: transparent;
+  color: orange;
+  font-weight: 900;
+  cursor: pointer;
+  border: none;
+}
+.remove-btn:hover {
+  color: white;
+}
+
+.loading-txt {
   margin-left: 15px;
   font-style: italic;
+}
+
+.load-btn {
+  margin-left: 2rem;
 }

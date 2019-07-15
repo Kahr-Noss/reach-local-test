@@ -23,16 +23,16 @@ function addCompany(code, startDate, endDate) {
 function loadCompanyData(code, startDate, endDate) {
   return (dispatch) => {
     dispatch({ type: actionsTypes.ADD_COMPANY, code }); // this reset the values and display them as loading
-    return request(`https://financialmodelingprep.com/api/v3/historical-price-full/${code}?from=${startDate.format('YYYY-MM-DD')}&to=${endDate.format('YYYY-MM-DD')}`)
+    return request(`https://financialmodelingprep.com/api/v3/historical-price-full/${encodeURI(code)}?from=${startDate.format('YYYY-MM-DD')}&to=${endDate.format('YYYY-MM-DD')}`)
       .then((data) => {
         // keep only relevant data
         const parsedData = JSON.parse(data);
         if (parsedData.Error) {
-          dispatch({ type: actionsTypes.SHOW_ERROR, category: 'company', msg: 'Company code not found, please chack that you inputed a valid company code.' });
+          dispatch({ type: actionsTypes.SHOW_ERROR, category: 'company', msg: `Company code not found, please chack that ${code} is a valid company code.`, code });
         } else {
           const result = {          
             name: parsedData.symbol,
-            isLoading: false,
+            status: 'complete',
             values: parsedData.historical.map((day) => ({
               date: day.date,
               close: day.close

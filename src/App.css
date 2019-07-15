@@ -1,5 +1,48 @@
+body {
+  background-color: beige;
+}
+
 .error-msg {
   color: red;
-  margin-left: 20px;
   font-style: italic;
+}
+
+.label {
+  height: 25px;
+  background-color: darkslategrey;
+  color: white;
+  font-size: 1rem;
+  font-weight: 900;
+  text-align: center;
+  padding: 5px 1rem;
+}
+
+.btn {
+  background-color: orange;
+  color: white;
+  font-size: 1rem;
+  font-weight: 900;
+  text-align: center;
+  padding: 5px 1rem;
+  cursor: pointer;
+  border: solid 2px orange;
+}
+.btn:hover {
+  background-color: white;
+  color: orange;
+}
+.btn:disabled{
+  background-color: gray;
+  border: solid 2px gray;
+  cursor: default;
+}
+.btn:disabled:hover {
+  background-color: white;
+  color: gray;
+}
+
+.text {
+  color: darkslategrey;
+  font-size: 1rem;
+  font-weight: 900;
 }

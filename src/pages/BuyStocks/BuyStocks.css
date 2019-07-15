@@ -1,5 +1,21 @@
-.error-msg {
-  color: red;
-  margin-left: 20px;
-  font-style: italic;
+.buy-stocks-wrapper {
+  padding: 20px;
+  width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.data-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.empty-line{
+  height: 20px;
+  text-align: right;
+}
+
+.buy-input{
+  width: 80px;
 }
