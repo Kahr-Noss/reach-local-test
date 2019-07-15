@@ -39,14 +39,14 @@ Like the previous module, the company code must be inputed, then the quantity.
 The possible errors will be displayed as you fill the form.
 The buy button will be disabled if there are errors or if you are outside of openning hours. (you can modify the current time by replacing 'date' in the file \src\utils\isStockExchangeOpen.js if you want)
 
--- My cart
+- My cart
 
 This module will display all the stocks you bought for this session.
 By clicking 'remove', you delete them from your cart
 By clicking 'edit', you can change the quantity you bought, but still with the same limitations (except opening hours)
 You need to validate for the change to be applied.
 
--- tests
+- tests
 
 The automated tests are only done for the component BuyStocks.
 You can run them uing npm run test.
