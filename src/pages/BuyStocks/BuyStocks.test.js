@@ -1,48 +1,50 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import configureStore from 'redux-mock-store';
+import { Provider } from "react-redux";
+import thunk from 'redux-thunk';
 
 import BuyStocks from './BuyStocks';
 import { actions } from '../../redux/BuyStocksActions';
 
-import "../../setupTests";
+import "../../../setupTests";
 
-const buildStore = configureStore();
+const mockStore = configureStore([thunk]);
 
 describe('BuyStocks', () => {
   let store;
   let wrapper;
   const initialState = {
-    company: 'GOOGL',
-    price: 1000,
-    quantity: 50,
-    status: 'complete',
-    errors: {
-      company: null,
-      quantity: null,
-      total: null,
-    },
-    cart: []
+    buyStocks: {
+      company: 'GOOGL',
+      price: 1000,
+      quantity: 50,
+      status: 'complete',
+      errors: {
+        company: null,
+        quantity: null,
+        total: null,
+      },
+      cart: []
+    }
   };
   beforeEach(() => {
-    store = buildStore(initialState);
-    wrapper = shallow();
+    store = mockStore(initialState, actions);
+    wrapper = shallow(<BuyStocks store={store}/>);
   });
 
-  it('renders without crashing', () => {
-    shallow(<BuyStocks />);
+  // check that store state is correctly passed
+  it('Passes props from store', () => {
+    expect(wrapper.props().children.props.company).toBe(initialState.buyStocks.company);
+    expect(wrapper.props().children.props.price).toBe(initialState.buyStocks.price);
+    expect(wrapper.props().children.props.quantity).toBe(initialState.buyStocks.quantity);
+    expect(wrapper.props().children.props.status).toBe(initialState.buyStocks.status);
   });
 
-  it('passes props from store', () => {
-    expect(wrapper.props().company).toBe(initialState.company);
-    // expect(wrapper.props().price).toBe(initialState.price);
-    // expect(wrapper.props().quantity).toBe(initialState.quantity);
-    // expect(wrapper.props().status).toBe(initialState.status);
+  // check that an action is applied on the store
+  it('Input company', () => {
+    const company = 'AMZN';
+    wrapper.props().children.props.onCompanyChange(company);
+    expect(store.getActions()).toContainEqual(actions.selectCompany(company));
   });
-
-  // it('can click yellow', () => {
-  //   const color = 'yellow';
-  //   wrapper.props().onClick(color)();
-  //   expect(store.getActions()).toContainEqual(saveColor({ color }));
-  // });
 });
