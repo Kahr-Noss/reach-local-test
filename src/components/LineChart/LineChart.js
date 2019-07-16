@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 
@@ -46,5 +47,18 @@ class LineChart extends PureComponent {
     );
   }
 }
+
+LineChart.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
+    values: PropTypes.arrayOf(PropTypes.shape({
+      date: PropTypes.string.isRequired,
+      close: PropTypes.number.isRequired,
+    })).isRequired,
+  }),
+  startDate: PropTypes.object.isRequired, //moment object
+  endDate: PropTypes.object.isRequired, //moment object
+};
 
 export default LineChart;

@@ -1,13 +1,14 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { actions } from '../../redux/BuyStocksActions';
 
 import './Cart.css';
 
+
 // component displaying cart content
 class Cart extends Component {
-
   // the state is used to save the currently edited data (no need to go through the store)
   constructor(props) {
     super(props);
@@ -91,6 +92,19 @@ class Cart extends Component {
     );
   }
 }
+
+Cart.propTypes = {
+  cart: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    time: PropTypes.object.isRequired, //moment object
+    company: PropTypes.string.isRequired,
+    quantity: PropTypes.number.isRequired,
+    price: PropTypes.number.isRequired,
+  })).isRequired,
+
+  onEdit: PropTypes.func.isRequired,
+  onItemRemove: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = (state) => ({
   cart: state.buyStocks.cart,

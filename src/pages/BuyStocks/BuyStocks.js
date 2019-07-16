@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { actions } from '../../redux/BuyStocksActions';
@@ -7,6 +8,7 @@ import isStockExchangeOpen from '../../utils/isStockExchangeOpen';
 
 import './BuyStocks.css';
 import "react-datepicker/dist/react-datepicker.css";
+
 
 // component for buying stocks
 function BuyStocks(props) {
@@ -46,10 +48,26 @@ function BuyStocks(props) {
       >
         BUY
       </button>
-      {isMarketOpen ? '' : <div className="italic-txt">Sorry, the Tokyo Stock Exchange is currently closed.<br/>Monday to Friday, 09:00-11:30, 12:30-15:00</div>}
+      {isMarketOpen ? '' : <div className="italic-txt">Sorry, the Tokyo Stock Exchange is currently closed.<br />Monday to Friday, 09:00-11:30, 12:30-15:00</div>}
     </div>
   );
 }
+
+BuyStocks.propTypes = {
+  company: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  quantity: PropTypes.number.isRequired,
+  status: PropTypes.string.isRequired,
+  errors: PropTypes.shape({
+    company: PropTypes.string.isRequired,
+    quantity: PropTypes.string.isRequired,
+    total: PropTypes.string.isRequired,
+  }),
+
+  onCompanyChange: PropTypes.func.isRequired,
+  onQuantityChange: PropTypes.func.isRequired,
+  onBuy: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = (state) => ({
   company: state.buyStocks.company,

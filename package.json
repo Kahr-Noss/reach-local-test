@@ -11,6 +11,7 @@
   "dependencies": {
     "moment": "^2.24.0",
     "moment-range": "^4.0.2",
+    "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-c3js": "^0.1.20",
     "react-datepicker": "^2.8.0",

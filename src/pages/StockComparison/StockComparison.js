@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import DatePicker from "react-datepicker";
@@ -94,6 +95,26 @@ class StockComparison extends Component {
     );
   }
 }
+
+StockComparison.propTypes = {
+  companies: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
+    values:    PropTypes.arrayOf(PropTypes.shape({
+      date: PropTypes.string.isRequired,
+      close: PropTypes.number.isRequired,
+    })).isRequired,
+  }),
+  startDate:PropTypes.object.isRequired, //moment object
+  endDate:PropTypes.object.isRequired, //moment object
+  error:  PropTypes.string.isRequired,
+
+  onDateChange:  PropTypes.func.isRequired,
+  onAddCompany: PropTypes.func.isRequired,
+  onLoadCompanyData: PropTypes.func.isRequired,
+  onCompanyRemove:  PropTypes.func.isRequired,
+};
+
 
 const mapStateToProps = (state) => ({
   startDate: state.stockComparison.startDate,

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 let c3;
 
@@ -73,5 +74,39 @@ class C3Chart extends React.Component {
     return <div className={className} style={style} />;
   }
 }
+
+C3Chart.propTypes = {
+  data: PropTypes.object.isRequired,
+  title: PropTypes.object,
+  size: PropTypes.object,
+  padding: PropTypes.object,
+  color: PropTypes.object,
+  interaction: PropTypes.object,
+  transition: PropTypes.object,
+  oninit: PropTypes.func,
+  onrendered: PropTypes.func,
+  onmouseover: PropTypes.func,
+  onmouseout: PropTypes.func,
+  onresize: PropTypes.func,
+  onresized: PropTypes.func,
+  axis: PropTypes.object,
+  grid: PropTypes.object,
+  regions: PropTypes.array,
+  legend: PropTypes.object,
+  tooltip: PropTypes.object,
+  subchart: PropTypes.object,
+  zoom: PropTypes.object,
+  point: PropTypes.object,
+  line: PropTypes.object,
+  area: PropTypes.object,
+  bar: PropTypes.object,
+  pie: PropTypes.object,
+  donut: PropTypes.object,
+  gauge: PropTypes.object,
+  className: PropTypes.string,
+  style: PropTypes.object,
+  unloadBeforeLoad: PropTypes.bool,
+  onPropsChanged: PropTypes.func,
+};
 
 export default C3Chart;
