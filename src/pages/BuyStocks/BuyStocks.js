@@ -11,9 +11,8 @@ import "react-datepicker/dist/react-datepicker.css";
 
 
 // component for buying stocks
-function BuyStocks(props) {
+export function BuyStocks(props) {
   const isMarketOpen = isStockExchangeOpen(moment());
-
   return (
     <div className="buy-stocks-wrapper">
       <div className="data-container">
@@ -59,9 +58,9 @@ BuyStocks.propTypes = {
   quantity: PropTypes.number.isRequired,
   status: PropTypes.string.isRequired,
   errors: PropTypes.shape({
-    company: PropTypes.string.isRequired,
-    quantity: PropTypes.string.isRequired,
-    total: PropTypes.string.isRequired,
+    company: PropTypes.string,
+    quantity: PropTypes.string,
+    total: PropTypes.string,
   }),
 
   onCompanyChange: PropTypes.func.isRequired,

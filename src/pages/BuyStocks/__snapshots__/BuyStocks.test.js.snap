@@ -1,0 +1,139 @@
+exports[`test render error inputs properly 1`] = `
+<div
+  className="buy-stocks-wrapper">
+  <div
+    className="data-container">
+    <div
+      className="text">
+      Type the company code you want:
+    </div>
+    <input
+      className="buy-input"
+      onChange={[Function]}
+      value="GOOGL" />
+  </div>
+  <div
+    className="empty-line error-msg">
+    error company
+  </div>
+  <div
+    className="data-container">
+    <div
+      className="text">
+      Stock Price: 
+    </div>
+    <div>
+      1000$
+    </div>
+  </div>
+  <div
+    className="empty-line" />
+  <div
+    className="data-container">
+    <div
+      className="text">
+      Quantity:
+    </div>
+    <input
+      className="buy-input"
+      onChange={[Function]}
+      value={50} />
+  </div>
+  <div
+    className="empty-line error-msg">
+    error quantity
+  </div>
+  <div
+    className="data-container">
+    <div
+      className="text">
+      Total: 
+    </div>
+    50000$
+  </div>
+  <div
+    className="empty-line error-msg">
+    error total
+  </div>
+  <br />
+  <button
+    className="buy-btn btn"
+    disabled={true}
+    onClick={[Function]}>
+    BUY
+  </button>
+  <div
+    className="italic-txt">
+    Sorry, the Tokyo Stock Exchange is currently closed.
+    <br />
+    Monday to Friday, 09:00-11:30, 12:30-15:00
+  </div>
+</div>
+`;
+
+exports[`test render standard inputs properly 1`] = `
+<div
+  className="buy-stocks-wrapper">
+  <div
+    className="data-container">
+    <div
+      className="text">
+      Type the company code you want:
+    </div>
+    <input
+      className="buy-input"
+      onChange={[Function]}
+      value="GOOGL" />
+  </div>
+  <div
+    className="empty-line error-msg" />
+  <div
+    className="data-container">
+    <div
+      className="text">
+      Stock Price: 
+    </div>
+    <div>
+      1000$
+    </div>
+  </div>
+  <div
+    className="empty-line" />
+  <div
+    className="data-container">
+    <div
+      className="text">
+      Quantity:
+    </div>
+    <input
+      className="buy-input"
+      onChange={[Function]}
+      value={50} />
+  </div>
+  <div
+    className="empty-line error-msg" />
+  <div
+    className="data-container">
+    <div
+      className="text">
+      Total: 
+    </div>
+    50000$
+  </div>
+  <div
+    className="empty-line error-msg" />
+  <br />
+  <button
+    className="buy-btn btn"
+    disabled={true}
+    onClick={[Function]}>
+    BUY
+  </button>
+  <div
+    className="italic-txt">
+    Sorry, the Tokyo Stock Exchange is currently closed.
+    <br />
+    Monday to Friday, 09:00-11:30, 12:30-15:00
+  </div>
+</div>
+`;

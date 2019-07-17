@@ -42,11 +42,8 @@ By clicking 'remove', you delete them from your cart.
 By clicking 'edit', you can change the quantity you bought, but still with the same limitations (except opening hours).  
 You need to validate for the change to be applied.
 
-- tests
+- Tests
 
 The automated tests are only done for the component BuyStocks.  
 You can run them uing npm run test.  
-
-I ran out of time while trying to implement them, I got some configurqtion problems with the implementation for Redux using Jest and Enzyme, so I cleaned them out of the master version.  
-The tentative can be found on the branch "add-tests".  
-It will need another "npm install" because additionnal packages are needed.
+It works using snapshots of the component.
