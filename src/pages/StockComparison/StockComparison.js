@@ -107,7 +107,7 @@ StockComparison.propTypes = {
   }),
   startDate:PropTypes.object.isRequired, //moment object
   endDate:PropTypes.object.isRequired, //moment object
-  error:  PropTypes.string.isRequired,
+  error:  PropTypes.string,
 
   onDateChange:  PropTypes.func.isRequired,
   onAddCompany: PropTypes.func.isRequired,
