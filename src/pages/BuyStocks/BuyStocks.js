@@ -35,7 +35,7 @@ export function BuyStocks(props) {
 
       <div className="data-container">
         <div className='text'>Total: </div>
-        {isNaN(props.price * props.quantity) ? '' : `${props.price * props.quantity}$`}
+        {isNaN(props.price * props.quantity) ? '' : `${(props.price * props.quantity).toFixed(2)}$`}
       </div>
       <div className="empty-line error-msg">{props.errors.total}</div>
 

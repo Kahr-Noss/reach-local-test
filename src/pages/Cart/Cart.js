@@ -63,7 +63,7 @@ class Cart extends Component {
                   : item.quantity
                 }
                 x {item.price}$
-                = {item.price * (this.state.editedID === item.id ? this.state.editedQuantity : item.quantity)}$
+                = {(item.price * (this.state.editedID === item.id ? this.state.editedQuantity : item.quantity)).toFixed(2)}$
               </div>
               {this.state.error && this.state.editedID === item.id ? <div className="error-msg" >{this.state.error}</div> : null}
             </div>
